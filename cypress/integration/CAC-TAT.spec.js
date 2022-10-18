@@ -11,12 +11,14 @@ describe("Central de atendimento ao cliente TAT", () => {
     })
 
     it.only("Preenche os campos obrigatórios e envia o formulário", () => {
+        const longText = 'text, text text text texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext text'
         cy.get('#firstName').type('Wesley')
         cy.get('#lastName').type('Moraes')
         cy.get('#email').type('wesleyjava88@gmail.com')
         cy.get('#phone').type('3243-3488')
+        cy.get('#open-text-area').type(longText,{delay:0})
         cy.get('button[type="submit"]').click()
 
-        cy.get('.error').should('be.visible')
+        cy.get('.success').should('be.visible')
     })
 })
