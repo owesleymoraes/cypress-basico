@@ -10,15 +10,31 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
     })
 
-    it.only("Preenche os campos obrigatórios e envia o formulário", () => {
+    it("Preenche os campos obrigatórios e envia o formulário", () => {
         const longText = 'text, text text text texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext text'
         cy.get('#firstName').type('Wesley')
         cy.get('#lastName').type('Moraes')
         cy.get('#email').type('wesleyjava88@gmail.com')
         cy.get('#phone').type('3243-3488')
-        cy.get('#open-text-area').type(longText,{delay:0})
+        cy.get('#open-text-area').type(longText, { delay: 0 })
         cy.get('button[type="submit"]').click()
 
         cy.get('.success').should('be.visible')
+    })
+
+    it("Deve mostrar mesagem de erro ao submenter o formulário com emaim em formatação errada", () => {
+        const longText = 'text, text text text texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext text'
+        cy.get('#firstName').type('Wesley')
+        cy.get('#lastName').type('Moraes')
+        cy.get('#email').type('wesleyjava88@gmail,com')
+        cy.get('#phone').type('3243-3488')
+        cy.get('#open-text-area').type("test")
+        cy.get('button[type="submit"]').click()
+        cy.get('.error').should('be.visible')
+    })
+
+    it.only('Deve mostrar campo telefone vazio quando digitos forem diferentes de números', () => {
+        cy.get('#phone').type('abc')
+        cy.get('#phone').should('have.text', '')
     })
 })
