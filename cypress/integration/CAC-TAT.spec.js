@@ -22,8 +22,8 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('.success').should('be.visible')
     })
 
-    it("Deve mostrar mesagem de erro ao submenter o formulário com emaim em formatação errada", () => {
-        const longText = 'text, text text text texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext texttext text'
+    it("Deve mostrar mesagem de erro ao submenter o formulário com email em formatação errada", () => {
+       
         cy.get('#firstName').type('Wesley')
         cy.get('#lastName').type('Moraes')
         cy.get('#email').type('wesleyjava88@gmail,com')
@@ -33,8 +33,18 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('.error').should('be.visible')
     })
 
-    it.only('Deve mostrar campo telefone vazio quando digitos forem diferentes de números', () => {
+    it('Deve mostrar campo telefone vazio quando digitos forem diferentes de números', () => {
         cy.get('#phone').type('abc')
         cy.get('#phone').should('have.text', '')
+    })
+
+    it.only('Deve mostrar mensagem de erro quando o telefone se torna obrigratório mas não foi preenchido antes do envio do formulário', () => {
+        cy.get('#firstName').type('Wesley')
+        cy.get('#lastName').type('Moraes')
+        cy.get('#email').type('wesleyjava88@gmail,com')
+        cy.get('#phone-checkbox').click()
+        cy.get('#open-text-area').type("test")
+        cy.get('button[type="submit"]').click()
+        cy.get('.error').should('be.visible')
     })
 })
