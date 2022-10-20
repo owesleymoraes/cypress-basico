@@ -38,7 +38,7 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('#phone').should('have.text', '')
     })
 
-    it.only('Deve mostrar mensagem de erro quando o telefone se torna obrigratório mas não foi preenchido antes do envio do formulário', () => {
+    it('Deve mostrar mensagem de erro quando o telefone se torna obrigratório mas não foi preenchido antes do envio do formulário', () => {
         cy.get('#firstName').type('Wesley')
         cy.get('#lastName').type('Moraes')
         cy.get('#email').type('wesleyjava88@gmail,com')
@@ -47,4 +47,13 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('button[type="submit"]').click()
         cy.get('.error').should('be.visible')
     })
+
+    it.only('Deve preencher e limpar os campos nome,email,telefone',()=>{
+        cy.get('#firstName').type('Wesley').clear().should('have.text','')
+        cy.get('#lastName').type('Moraes').clear().should('have.text','')
+        cy.get('#email').type('wesleyjava88@gmail,com').clear().should('have.text','')
+        cy.get('#phone').type('3243-3488').clear().should('have.text','')
+    })
+
+
 })
