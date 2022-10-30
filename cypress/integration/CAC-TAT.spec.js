@@ -19,7 +19,7 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('#email').type(emailFaker)
         cy.get('#phone').type(phoneFaker)
         cy.get('#open-text-area').type(textFaker, { delay: 0 })
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
     })
 
     it('Verifica o título do aplicativo', () => {
@@ -27,8 +27,6 @@ describe("Central de atendimento ao cliente TAT", () => {
     })
 
     it("Preenche os campos obrigatórios e envia o formulário", () => {
-
-
         cy.get('.success').should('be.visible')
     })
 
@@ -39,7 +37,7 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('#email').type('wesleyjava88@gmail,com')
         cy.get('#phone').type('3243-3488')
         cy.get('#open-text-area').type("test")
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
         cy.get('.error').should('be.visible')
     })
 
@@ -54,7 +52,7 @@ describe("Central de atendimento ao cliente TAT", () => {
         cy.get('#email').type('wesleyjava88@gmail,com')
         cy.get('#phone-checkbox').click()
         cy.get('#open-text-area').type("test")
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
         cy.get('.error').should('be.visible')
     })
 
@@ -66,7 +64,7 @@ describe("Central de atendimento ao cliente TAT", () => {
     })
 
     it('Deve mostrar mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
-        cy.get('button[type="submit"]').click()
+        cy.contains('button', 'Enviar').click()
         cy.get('.error').should('be.visible')
     })
 
